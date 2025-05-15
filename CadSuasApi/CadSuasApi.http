@@ -1,0 +1,6 @@
+@CadSuasApi_HostAddress = http://localhost:5227
+
+GET {{CadSuasApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
