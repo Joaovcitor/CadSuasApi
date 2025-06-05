@@ -12,20 +12,20 @@ namespace CadSuasApi.Controllers
     {
         private readonly AppDbContext _context;
 
-        public FichaCadastralPessoalController (AppDbContext context)
+        public FichaCadastralPessoalController(AppDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<FichaCadastralPessoal>> Get()
+        public async Task<ActionResult<IEnumerable<FichaCadastralPessoal>>> GetAsync()
         {
             try
             {
-                var fichas = _context.FichaCadastralPessoal.AsNoTracking().ToList();
-                if (fichas is null)
+                var fichas = await _context.FichaCadastralPessoal.AsNoTracking().ToListAsync();
+                if (!fichas.Any())
                 {
-                  return NotFound("Não a fichas pessoais");
+                    return NotFound("Não a fichas pessoais");
                 }
                 return fichas;
             }
@@ -34,55 +34,104 @@ namespace CadSuasApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar a sua solicitação!");
             }
         }
-    
-        [HttpGet("{id:int:min(1}", Name = "ObterFicha")]
-        public ActionResult<FichaCadastralPessoal> Get(int id)
+
+        [HttpGet("{id:int:min(1)}", Name = "ObterFicha")]
+        public async Task<ActionResult<FichaCadastralPessoal>> GetByIdAsyn(int id)
         {
-            var ficha = _context.FichaCadastralPessoal.FirstOrDefault(x => x.Id == id);
-            if (ficha is null)
+
+            try
             {
-                return NotFound("Ficha cadastral pessoal não encontrada");
+                var ficha = await _context.FichaCadastralPessoal.FirstOrDefaultAsync(x => x.Id == id);
+                if (ficha is null)
+                {
+                    return NotFound("Ficha cadastral pessoal não encontrada");
+                }
+                return ficha;
+
             }
-            return ficha;
+
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro desconhecido ao buscar o dado!");
+            }
         }
 
         [HttpPost]
-        public ActionResult Post(FichaCadastralPessoal fichaCadastral)
+        public async Task<ActionResult> PostAsync(FichaCadastralPessoal fichaCadastral)
         {
-            if (fichaCadastral is null)
+            try
             {
-                return BadRequest();
+                if (fichaCadastral is null)
+                {
+                    return BadRequest();
+                }
+                _context.FichaCadastralPessoal.Add(fichaCadastral);
+                await _context.SaveChangesAsync();
+                return CreatedAtAction(nameof(GetByIdAsyn), new { id = fichaCadastral.Id }, fichaCadastral);
+
             }
-            _context.FichaCadastralPessoal.Add(fichaCadastral);
-            _context.SaveChanges();
-            return new CreatedAtRouteResult("ObterFicha", new {id = fichaCadastral.Id}, fichaCadastral);
+
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Erro ao salvar no banco de dados!");
+            }
+
+            catch (Exception e)
+            {
+
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao enviar os dados!");
+            }
         }
 
         [HttpPut("{id:int}")]
-        public ActionResult<FichaCadastralPessoal> Put(int id, FichaCadastralPessoal fichaCadastral)
+        public async Task<ActionResult<FichaCadastralPessoal>> Put(int id, FichaCadastralPessoal fichaCadastral)
         {
-            if (id != fichaCadastral.Id)
+
+            try
             {
-                return BadRequest($"ID:{id}, OBJ: {fichaCadastral.Id}");
+                if (id != fichaCadastral.Id)
+                {
+                    return BadRequest($"o ID {id} não existe.");
+                }
+
+                var existingFicha = await _context.FichaCadastralPessoal.FindAsync(id);
+                if (existingFicha == null)
+                {
+                    return NotFound();
+                }
+
+                _context.Entry(existingFicha).CurrentValues.SetValues(fichaCadastral);
+                await _context.SaveChangesAsync();
+                return NoContent();
             }
-            
-            _context.Entry(fichaCadastral).State = EntityState.Modified;
-            _context.SaveChanges();
-            return NoContent();
+            catch (DbUpdateException ex)
+            {
+                return StatusCode(500, "Ocorreu um erro ao atualizar os dados!");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro desconhecido");
+            }
         }
 
-        [HttpDelete("id:int")]
-        public ActionResult Delete(int id)
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> DeleteAsync(int id)
         {
-            var ficha = _context.FichaCadastralPessoal.FirstOrDefault(x => x.Id == id);
-            if (ficha is null)
+            try
             {
-                return NotFound("Ficha cadastral pessoal não encontrada");
+                var ficha = await _context.FichaCadastralPessoal.FirstOrDefaultAsync(x => x.Id == id);
+                if (ficha is null)
+                {
+                    return NotFound("Ficha cadastral pessoal não encontrada");
+                }
+                _context.FichaCadastralPessoal.Remove(ficha);
+                await _context.SaveChangesAsync();
+                return Ok(ficha);
             }
-            _context.FichaCadastralPessoal.Remove(ficha);
-            _context.SaveChanges();
-            return Ok(ficha);
+            catch (Exception e)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao deletar o dado!");
+            }
         }
-        
     }
 }

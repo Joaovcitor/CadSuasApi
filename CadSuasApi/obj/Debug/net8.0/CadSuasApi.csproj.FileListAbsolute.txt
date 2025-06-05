@@ -260,3 +260,4 @@
 /home/joao-victor/RiderProjects/CadSuasApi/CadSuasApi/bin/Debug/net8.0/runtimes/win/lib/net7.0/System.Windows.Extensions.dll
 /home/joao-victor/RiderProjects/CadSuasApi/CadSuasApi/bin/Debug/net8.0/MySqlConnector.dll
 /home/joao-victor/RiderProjects/CadSuasApi/CadSuasApi/bin/Debug/net8.0/Pomelo.EntityFrameworkCore.MySql.dll
+/home/joao-victor/RiderProjects/CadSuasApi/CadSuasApi/obj/Debug/net8.0/CadSuasApi.sourcelink.json
