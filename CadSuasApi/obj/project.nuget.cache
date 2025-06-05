@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "gP7CrtGYl39VZTzK0s2hFn1NOoiPj4o1A11j9gyZZ1cggQ4BWF7PUZSb3ka1sGFQgLhNCggHLmNRtyclzyyKoQ==",
+  "dgSpecHash": "Y12hfN04A7nEu51T3T74KvoaA3PfJnN9fCrSWgs17nH3Tm08ynzg64uVpVFXGcq3LgWJziQsj/gXlnvSXcO+dQ==",
   "success": true,
   "projectFilePath": "/home/joao-victor/RiderProjects/CadSuasApi/CadSuasApi/CadSuasApi.csproj",
   "expectedPackageFiles": [
+    "/home/joao-victor/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/joao-victor/.nuget/packages/humanizer/2.14.1/humanizer.2.14.1.nupkg.sha512",
     "/home/joao-victor/.nuget/packages/humanizer.core/2.14.1/humanizer.core.2.14.1.nupkg.sha512",
     "/home/joao-victor/.nuget/packages/humanizer.core.af/2.14.1/humanizer.core.af.2.14.1.nupkg.sha512",

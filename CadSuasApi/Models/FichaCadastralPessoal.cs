@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace CadSuasApi.Models;
 
@@ -27,7 +28,7 @@ public class FichaCadastralPessoal
     [StringLength(10)]
     public string? Rg { get; set; }
     public DateOnly? DataDaExpedicao { get; set; }
-    public string? UfExpedidora {get; set;}
+    public string? UfExpedidora { get; set; }
     [Required]
     [StringLength(11)]
     public string? Cpf { get; set; }
@@ -44,6 +45,7 @@ public class FichaCadastralPessoal
     public string? Profissao { get; set; }
     [StringLength(40)]
     public string? RegistroProfssional { get; set; }
-    
+
+    [JsonIgnore]
     public FichaCadastralProfissional? FichaCadastralProfissional { get; set; }
 }
