@@ -9,7 +9,7 @@ namespace CadSuasApi.Models;
 [Table("FichaCadastralProfissional")]
 public class FichaCadastralProfissional
 {
-   
+
     [Key]
     public int Id { get; set; }
     [Required]
@@ -21,11 +21,11 @@ public class FichaCadastralProfissional
     [StringLength(150)]
     public string Vinculo { get; set; }
     [Required]
-    public int CaragHoraria { get; set; }
+    public int CargaHoraria { get; set; }
     [Required]
     public DateOnly DataPreencimento { get; set; }
     public int FichaCadastralPessoalId { get; set; }
-    
+
     [System.Text.Json.Serialization.JsonIgnore]
     [ForeignKey("FichaCadastralPessoalId")]
     public FichaCadastralPessoal? FichaCadastralPessoal { get; set; }

@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
+using CadSuasApi.Validations;
 
 namespace CadSuasApi.Models;
 
@@ -11,6 +12,7 @@ public class FichaCadastralPessoal
     public int Id { get; set; }
     [Required]
     [StringLength(250)]
+    [PrimeiraLetraMaiuscula]
     public string? Nome { get; set; }
     [Required]
     public char Sexo { get; set; }

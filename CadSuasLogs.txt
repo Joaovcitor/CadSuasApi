@@ -1,0 +1,94 @@
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - ### executando pós OnActionExecuted
+Information: 0 - ModelState: 200
+Information: 0 - GET api/fichas
+Information: 20101 - Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `f`.`Id`, `f`.`Bairro`, `f`.`Cep`, `f`.`Cpf`, `f`.`DataDaExpedicao`, `f`.`DataNascimento`, `f`.`Endereco`, `f`.`Escolaridade`, `f`.`Nome`, `f`.`NumeroEndereco`, `f`.`Profissao`, `f`.`RegistroProfssional`, `f`.`Rg`, `f`.`Secao`, `f`.`Sexo`, `f`.`Telefone`, `f`.`TituloEleitor`, `f`.`UfExpedidora`, `f`.`Zona`
+FROM `FichaCadastralPessoal` AS `f`
+Information: 0 - ### executando
+Information: 0 - ModelState: True
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Error: 0 - Ocorreu uma exceção não tratada!
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (17ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `f`.`Id`, `f`.`Bairro`, `f`.`Cep`, `f`.`Cpf`, `f`.`DataDaExpedicao`, `f`.`DataNascimento`, `f`.`Endereco`, `f`.`Escolaridade`, `f`.`Nome`, `f`.`NumeroEndereco`, `f`.`Profissao`, `f`.`RegistroProfssional`, `f`.`Rg`, `f`.`Secao`, `f`.`Sexo`, `f`.`Telefone`, `f`.`TituloEleitor`, `f`.`UfExpedidora`, `f`.`Zona`
+FROM `FichaCadastralPessoal` AS `f`
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Error: 1 - An unhandled exception has occurred while executing the request.
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 0 - Application is shutting down...
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (35ms) [Parameters=[@p0='?' (Size = 50), @p1='?' (Size = 9), @p2='?' (Size = 11), @p3='?' (DbType = Date), @p4='?' (DbType = Date), @p5='?' (Size = 250), @p6='?' (Size = 40), @p7='?' (Size = 250), @p8='?' (Size = 40), @p9='?' (Size = 100), @p10='?' (Size = 40), @p11='?' (Size = 10), @p12='?' (Size = 5), @p13='?' (Size = 1), @p14='?' (Size = 11), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `FichaCadastralPessoal` (`Bairro`, `Cep`, `Cpf`, `DataDaExpedicao`, `DataNascimento`, `Endereco`, `Escolaridade`, `Nome`, `NumeroEndereco`, `Profissao`, `RegistroProfssional`, `Rg`, `Secao`, `Sexo`, `Telefone`, `TituloEleitor`, `UfExpedidora`, `Zona`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17);
+SELECT `Id`
+FROM `FichaCadastralPessoal`
+WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `f`.`Id`, `f`.`Bairro`, `f`.`Cep`, `f`.`Cpf`, `f`.`DataDaExpedicao`, `f`.`DataNascimento`, `f`.`Endereco`, `f`.`Escolaridade`, `f`.`Nome`, `f`.`NumeroEndereco`, `f`.`Profissao`, `f`.`RegistroProfssional`, `f`.`Rg`, `f`.`Secao`, `f`.`Sexo`, `f`.`Telefone`, `f`.`TituloEleitor`, `f`.`UfExpedidora`, `f`.`Zona`
+FROM `FichaCadastralPessoal` AS `f`
+Information: 20101 - Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `f`.`Id`, `f`.`Bairro`, `f`.`Cep`, `f`.`Cpf`, `f`.`DataDaExpedicao`, `f`.`DataNascimento`, `f`.`Endereco`, `f`.`Escolaridade`, `f`.`Nome`, `f`.`NumeroEndereco`, `f`.`Profissao`, `f`.`RegistroProfssional`, `f`.`Rg`, `f`.`Secao`, `f`.`Sexo`, `f`.`Telefone`, `f`.`TituloEleitor`, `f`.`UfExpedidora`, `f`.`Zona`
+FROM `FichaCadastralPessoal` AS `f`
+WHERE `f`.`Id` = @__id_0
+LIMIT 1
+Information: 14 - Now listening on: http://localhost:5227
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: /home/joao/Área de Trabalho/Trabalhos/Prefeitura/CadSuasApi/CadSuasApi
+Warning: 3 - Failed to determine the https port for redirect.
+Information: 20101 - Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT `f`.`Id`, `f`.`Bairro`, `f`.`Cep`, `f`.`Cpf`, `f`.`DataDaExpedicao`, `f`.`DataNascimento`, `f`.`Endereco`, `f`.`Escolaridade`, `f`.`Nome`, `f`.`NumeroEndereco`, `f`.`Profissao`, `f`.`RegistroProfssional`, `f`.`Rg`, `f`.`Secao`, `f`.`Sexo`, `f`.`Telefone`, `f`.`TituloEleitor`, `f`.`UfExpedidora`, `f`.`Zona`
+FROM `FichaCadastralPessoal` AS `f`
+Information: 20101 - Executed DbCommand (24ms) [Parameters=[@p0='?' (Size = 50), @p1='?' (Size = 9), @p2='?' (Size = 11), @p3='?' (DbType = Date), @p4='?' (DbType = Date), @p5='?' (Size = 250), @p6='?' (Size = 40), @p7='?' (Size = 250), @p8='?' (Size = 40), @p9='?' (Size = 100), @p10='?' (Size = 40), @p11='?' (Size = 10), @p12='?' (Size = 5), @p13='?' (Size = 1), @p14='?' (Size = 11), @p15='?' (DbType = Int32), @p16='?' (Size = 4000), @p17='?' (Size = 5)], CommandType='Text', CommandTimeout='30']
+INSERT INTO `FichaCadastralPessoal` (`Bairro`, `Cep`, `Cpf`, `DataDaExpedicao`, `DataNascimento`, `Endereco`, `Escolaridade`, `Nome`, `NumeroEndereco`, `Profissao`, `RegistroProfssional`, `Rg`, `Secao`, `Sexo`, `Telefone`, `TituloEleitor`, `UfExpedidora`, `Zona`)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17);
+SELECT `Id`
+FROM `FichaCadastralPessoal`
+WHERE ROW_COUNT() = 1 AND `Id` = LAST_INSERT_ID();
+Information: 20101 - Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT `f`.`Id`, `f`.`Bairro`, `f`.`Cep`, `f`.`Cpf`, `f`.`DataDaExpedicao`, `f`.`DataNascimento`, `f`.`Endereco`, `f`.`Escolaridade`, `f`.`Nome`, `f`.`NumeroEndereco`, `f`.`Profissao`, `f`.`RegistroProfssional`, `f`.`Rg`, `f`.`Secao`, `f`.`Sexo`, `f`.`Telefone`, `f`.`TituloEleitor`, `f`.`UfExpedidora`, `f`.`Zona`
+FROM `FichaCadastralPessoal` AS `f`
+WHERE `f`.`Id` = @__id_0
+LIMIT 1

@@ -1,5 +1,7 @@
 using CadSuasApi.Context;
+using CadSuasApi.Filters;
 using CadSuasApi.Models;
+using CadSuasApi.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,128 +12,82 @@ namespace CadSuasApi.Controllers
     [ApiController]
     public class FichaCadastralPessoalController : ControllerBase
     {
-        private readonly AppDbContext _context;
-
-        public FichaCadastralPessoalController(AppDbContext context)
+        private readonly IUnitOfWork _uof;
+        public FichaCadastralPessoalController(IUnitOfWork uof)
         {
-            _context = context;
+            _uof = uof;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FichaCadastralPessoal>>> GetAsync()
+        public ActionResult<IEnumerable<FichaCadastralPessoal>> GetAsync()
         {
-            try
+            var fichas = _uof.FichaCadastralRepository.GetAll();
+            if (!fichas.Any())
             {
-                var fichas = await _context.FichaCadastralPessoal.AsNoTracking().ToListAsync();
-                if (!fichas.Any())
-                {
-                    return NotFound("Não a fichas pessoais");
-                }
-                return fichas;
+                return NotFound("Não existem fichas pessoais");
             }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um problema ao tratar a sua solicitação!");
-            }
+            return Ok(fichas);
         }
 
         [HttpGet("{id:int:min(1)}", Name = "ObterFicha")]
-        public async Task<ActionResult<FichaCadastralPessoal>> GetByIdAsyn(int id)
+        public ActionResult<FichaCadastralPessoal> GetByIdAsyn(int id)
         {
-
-            try
+            var ficha = _uof.FichaCadastralRepository.Get(f => f.Id == id);
+            if (ficha is null)
             {
-                var ficha = await _context.FichaCadastralPessoal.FirstOrDefaultAsync(x => x.Id == id);
-                if (ficha is null)
-                {
-                    return NotFound("Ficha cadastral pessoal não encontrada");
-                }
-                return ficha;
-
+                return NotFound("Ficha cadastral pessoal não encontrada");
             }
-
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro desconhecido ao buscar o dado!");
-            }
+            return ficha;
         }
 
         [HttpPost]
-        public async Task<ActionResult> PostAsync(FichaCadastralPessoal fichaCadastral)
+        public ActionResult PostAsync(FichaCadastralPessoal fichaCadastral)
         {
-            try
+            if (fichaCadastral is null)
             {
-                if (fichaCadastral is null)
-                {
-                    return BadRequest();
-                }
-                _context.FichaCadastralPessoal.Add(fichaCadastral);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction(nameof(GetByIdAsyn), new { id = fichaCadastral.Id }, fichaCadastral);
-
+                return BadRequest();
             }
-
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, "Erro ao salvar no banco de dados!");
-            }
-
-            catch (Exception e)
-            {
-
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao enviar os dados!");
-            }
+            _uof.FichaCadastralRepository.Create(fichaCadastral);
+            _uof.Commit();
+            return CreatedAtRoute("ObterFicha", new { id = fichaCadastral.Id }, fichaCadastral);
         }
+
+        // esse metodo put vai ser realmente necessário?
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult<FichaCadastralPessoal>> Put(int id, FichaCadastralPessoal fichaCadastral)
+        public ActionResult<FichaCadastralPessoal> Put(int id, FichaCadastralPessoal fichaCadastral)
         {
 
-            try
+            if (id != fichaCadastral.Id)
             {
-                if (id != fichaCadastral.Id)
-                {
-                    return BadRequest($"o ID {id} não existe.");
-                }
+                return BadRequest($"o ID {id} não existe.");
+            }
 
-                var existingFicha = await _context.FichaCadastralPessoal.FindAsync(id);
-                if (existingFicha == null)
-                {
-                    return NotFound();
-                }
+            var existingFicha = _uof.FichaCadastralRepository.Get(f => f.Id == id);
+            if (existingFicha == null)
+            {
+                return NotFound();
+            }
 
-                _context.Entry(existingFicha).CurrentValues.SetValues(fichaCadastral);
-                await _context.SaveChangesAsync();
-                return NoContent();
-            }
-            catch (DbUpdateException ex)
-            {
-                return StatusCode(500, "Ocorreu um erro ao atualizar os dados!");
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro desconhecido");
-            }
+            _uof.FichaCadastralRepository.Update(existingFicha);
+            _uof.Commit();
+            return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> DeleteAsync(int id)
-        {
-            try
-            {
-                var ficha = await _context.FichaCadastralPessoal.FirstOrDefaultAsync(x => x.Id == id);
-                if (ficha is null)
-                {
-                    return NotFound("Ficha cadastral pessoal não encontrada");
-                }
-                _context.FichaCadastralPessoal.Remove(ficha);
-                await _context.SaveChangesAsync();
-                return Ok(ficha);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "Ocorreu um erro ao deletar o dado!");
-            }
-        }
+        // é complicado, neste momento, definir esse metodo, pois, considerando que alguns funcionários podem acabar deletando sem querer uma ficha, poderia
+        // causar problemas. Em breve, verei como será implementado, de forma segura, esse metodo
+
+        // [HttpDelete("{id:int}")]
+        // public async Task<ActionResult> DeleteAsync(int id)
+        // {
+        //     var ficha = await _context.FichaCadastralPessoal.FirstOrDefaultAsync(x => x.Id == id);
+        //     if (ficha is null)
+        //     {
+        //         return NotFound("Ficha cadastral pessoal não encontrada");
+        //     }
+        //     _context.FichaCadastralPessoal.Remove(ficha);
+        //     await _context.SaveChangesAsync();
+        //     return Ok(ficha);
+        // }
     }
 }

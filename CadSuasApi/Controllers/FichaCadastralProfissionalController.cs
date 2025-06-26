@@ -17,57 +17,40 @@ namespace CadSuasApi.Controllers
         }
 
         [HttpGet("fichas")]
-        public ActionResult<IEnumerable<FichaCadastralProfissional>> GetFichasProfissionaisActionResult()
+        public async Task<ActionResult<IEnumerable<FichaCadastralProfissional>>> GetFichasProfissionaisActionResultAsync()
         {
-            return _context.FichaCadastralProfissional.Include(f => f.FichaCadastralPessoal).ToList();
+            return await _context.FichaCadastralProfissional.Include(f => f.FichaCadastralPessoal).ToListAsync();
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<FichaCadastralProfissional>> Get()
+        public async Task<ActionResult<IEnumerable<FichaCadastralProfissional>>> Get()
         {
             return _context.FichaCadastralProfissional.ToList();
         }
 
-        [HttpGet("{id:int}",  Name = "Get")]
+        [HttpGet("{id:int}", Name = "Get")]
         public ActionResult<FichaCadastralProfissional> Get(int id)
         {
-            try
+            var ficha = _context.FichaCadastralProfissional.FirstOrDefault(f => f.Id == id);
+            if (ficha == null)
             {
-                var ficha = _context.FichaCadastralProfissional.FirstOrDefault(f => f.Id == id);
-                if (ficha == null)
-                {
-                    return NotFound();
-                }
-                return Ok(ficha);
-
+                return NotFound();
             }
-            catch (Exception e)
-            {
-                return StatusCode(500, $"Ocorreu um erro ao buscar a ficha de ID:{id}");
-            }
+            return Ok(ficha);
         }
 
         [HttpPost]
         public ActionResult Post(FichaCadastralProfissional ficha)
         {
-            try
+            if (ficha == null)
             {
-                if (ficha == null)
-                {
-                    return BadRequest();
-                }
-                _context.FichaCadastralProfissional.Add(ficha);
-                _context.SaveChanges();
-                return new CreatedAtRouteResult("Get", new { id = ficha.Id }, ficha);
-                
+                return BadRequest();
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                return StatusCode(500, "Erro ao cadastrar ficha");
-            }
+            _context.FichaCadastralProfissional.Add(ficha);
+            _context.SaveChanges();
+            return new CreatedAtRouteResult("Get", new { id = ficha.Id }, ficha);
         }
-        
+
         [HttpPut("{id:int}")]
         public ActionResult<FichaCadastralProfissional> Put(int id, FichaCadastralProfissional fichaCadastral)
         {
@@ -94,6 +77,6 @@ namespace CadSuasApi.Controllers
             _context.SaveChanges();
             return Ok(ficha);
         }
-        
+
     }
 }
